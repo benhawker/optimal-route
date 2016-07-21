@@ -69,5 +69,4 @@ class MapsApiCaller
   def valid_mode?(mode)
     VALID_MODES.include?(mode)
   end
-
 end
