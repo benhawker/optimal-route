@@ -1,8 +1,8 @@
-# +PointToVisitInputter+ - the entry point for defining the points you seek to visit.
+# +PointToVisit+ - the entry point for defining the points you seek to visit.
 
-# Usage: PointsToVisitInputter.new("Brooklyn", ["Queens", "Flushing", "La Guardia"])
+# Usage: PointsToVisit.new("Brooklyn", ["Queens", "Flushing", "La Guardia"])
 
-class PointsToVisitInputter
+class PointsToVisit
   attr_reader :origin, :points_to_visit
 
   # Error that is raised when the location is not recognised by the Google Maps API.
