@@ -14,7 +14,7 @@ class MapsApiCaller
   # Error that is raised when an invalid mode of transport is specified
   class InvalidTravelMode < StandardError
     def initialize(mode)
-      super("Your mode: '#{mode}'' is not valid. Try one of these #{VALID_MODES}")
+      super("Your mode: #{mode} is not valid. Try one of these: #{VALID_MODES.join(', ')}.")
     end
   end
 
@@ -25,15 +25,21 @@ class MapsApiCaller
 
   attr_reader :base_url, :origin, :destination, :mode, :key
 
-  def initialize(origin, destination, mode=DEFAULT_MODE, key)
+  def initialize(origin, destination, mode=nil, key)
     @base_url = BASE_URL
     @origin = origin
     @destination = destination
-    @mode = mode
+    @mode = mode || DEFAULT_MODE
     @key = key
 
-    raise InvalidTravelMode.new(mode) unless valid_mode?(mode)
+    raise InvalidTravelMode.new(@mode) unless valid_mode?(@mode)
   end
+
+  def time_and_distance
+    ResponseInfoGetter.new(call).return
+  end
+
+  private
 
   def call
     response = HTTParty.get(
@@ -43,8 +49,6 @@ class MapsApiCaller
 
       prepare_response(response)
   end
-
-  private
 
   def build_params
     params = {

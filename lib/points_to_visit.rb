@@ -1,5 +1,4 @@
 # +PointToVisit+ - the entry point for defining the points you seek to visit.
-
 # Usage: PointsToVisit.new("Brooklyn", ["Queens", "Flushing", "La Guardia"])
 
 class PointsToVisit
@@ -30,12 +29,7 @@ class PointsToVisit
   private
 
   def valid_locations?
-    tmp = points_to_visit
-    tmp << origin
-
-    tmp.each do |location|
-      valid_location?(location)
-    end
+     points_to_visit.each { |location| valid_location?(location) } && valid_location?(origin)
   end
 
   def valid_location?(location)

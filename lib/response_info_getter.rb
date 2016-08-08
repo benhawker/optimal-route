@@ -1,17 +1,17 @@
 # +MapsResponseInfoGetter+
 #
-# Proposed usage:
-# => getter = ResponseInfoGetter.new(xxx)
+# Usage:
+# => getter = ResponseInfoGetter.new(parsed_api_response)
 # => getter.return
 
 class ResponseInfoGetter
   attr_reader :response
 
-  def initialize
-    @response = MapsApiCaller.new('Brooklyn', 'Queens', 'walking', 'your_token')
+  def initialize(response)
+    @response = response
   end
 
-  def
+  def return
     {
       distance: distance_in_meters,
       duration: duration_in_seconds
