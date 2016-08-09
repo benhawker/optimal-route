@@ -11,6 +11,7 @@ class GraphBuilder
 
   def get_distances
     get_distance_from_origin_to_other_points
+    get_distance_from_other_points_to_origin
     get_distance_from_other_points_to_other_points
 
     graph_array
@@ -22,6 +23,17 @@ class GraphBuilder
 
     points_to_visit.each do |point|
       graph_array << { :origin => origin, :destination => point }.merge!(get_distance(origin, point))
+    end
+
+    graph_array
+  end
+
+  def get_distance_from_other_points_to_origin
+    origin = points[:origin]
+    points_to_visit = points[:points_to_visit]
+
+    points_to_visit.each do |point|
+      graph_array << { :origin => point, :destination => origin }.merge!(get_distance(point, origin))
     end
 
     graph_array
@@ -44,6 +56,6 @@ class GraphBuilder
   private
 
   def get_distance(origin, destination)
-    MapsApiCaller.new(origin, destination, nil, "super_secret_key").time_and_distance
+    MapsApiCaller.new(origin, destination, nil, "super_secret_api_key").time_and_distance
   end
 end
